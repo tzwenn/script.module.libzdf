@@ -52,7 +52,7 @@ class libzdf(lm4):
 
 	def libZdfListMain(self):
 		l = []
-		l.append({'metadata':{'name':self.translation(32031)}, 'params':{'mode':'libZdfListPage','url':f'{self.baseApi}/content/documents/meist-gesehen-100.json?profile=default'}, 'type':'dir'})
+		#l.append({'metadata':{'name':self.translation(32031)}, 'params':{'mode':'libZdfListPage','url':f'{self.baseApi}/content/documents/meist-gesehen-100.json?profile=default'}, 'type':'dir'})
 		#l.append({'metadata':{'name':self.translation(32031)}, 'params':{'mode':'libZdfListPage','url':f'{self.baseApi}/content/documents/filter-meist-gesehen-100.json?profile=page-video_episode_vod&limit=50'}, 'type':'dir'})
 		l.append({'metadata':{'name':self.translation(32132)}, 'params':{'mode':'libZdfListShows'}, 'type':'dir'})
 		l.append({'metadata':{'name':self.translation(32133)}, 'params':{'mode':'libZdfListChannel'}, 'type':'dir'})
@@ -90,4 +90,3 @@ class libzdf(lm4):
 	def libZdfListSearch(self,searchString):
 		self.params['url'] = f'{self.baseApi}/search/documents?q={searchString}'
 		return self.libZdfListPage()
-			

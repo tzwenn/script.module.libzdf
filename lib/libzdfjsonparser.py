@@ -195,15 +195,14 @@ class parser:
 		self._grepActors(target)
 
 		if target['contentType'] == 'topic':
-			if target['hasVideo'] == False: return False
+			if not target.get('hasVideo', False): return False
 
 			self.d['params']['url'] = self.baseApi + target['self']+'&limit=100'
 			self.d['params']['mode'] = 'libZdfListPage'
 			self.d['type'] = 'dir'
 
 		elif target['contentType'] in ['brand','category','topic']:
-			if not 'hasVideo' in target: return False
-			if target['hasVideo'] == False: return False
+			if not target.get('hasVideo', False): return False
 
 			self.d['params']['url'] = self.baseApi + target['http://zdf.de/rels/search/page-video-counter-with-video']['self'].replace('&limit=0','&limit=100')
 			self.d['params']['mode'] = 'libZdfListPage'
@@ -220,7 +219,7 @@ class parser:
 			except: self.d = False
 
 		elif target['contentType'] == 'episode':# or target['contentType'] == 'clip':
-			if not target['hasVideo']:
+			if not target.get('hasVideo', False):
 				pass
 				#return False
 			#if target['mainVideoContent']['http://zdf.de/rels/target']['showCaption']:
@@ -259,7 +258,7 @@ class parser:
 		
 	def _grepArt(self,target,isVideo=False):
 		art = {}
-		if not isVideo:
+		if not isVideo and 'teaserImageRef' in target:
 			if 'layouts' in target['teaserImageRef']:
 				if '384xauto' in target['teaserImageRef']['layouts']:
 					self.d['metadata']['art']['thumb'] = target['teaserImageRef']['layouts']['384xauto']
