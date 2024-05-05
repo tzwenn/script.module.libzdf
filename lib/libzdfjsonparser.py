@@ -204,7 +204,12 @@ class parser:
 		elif target['contentType'] in ['brand','category','topic']:
 			if not target.get('hasVideo', False): return False
 
-			self.d['params']['url'] = self.baseApi + target['http://zdf.de/rels/search/page-video-counter-with-video']['self'].replace('&limit=0','&limit=100')
+			try:
+				t = target["http://zdf.de/rels/search/page-video-counter-with-video"]["self"]
+			except KeyError:
+				return False
+
+			self.d['params']['url'] = self.baseApi + t.replace('&limit=0','&limit=100')
 			self.d['params']['mode'] = 'libZdfListPage'
 			self.d['type'] = 'dir'
 
